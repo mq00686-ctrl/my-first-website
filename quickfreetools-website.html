@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>QuickFreeTools – Free Online Tools</title>
+<meta name="description" content="Free, simple online tools for everyday tasks: word counter, age calculator, percentage calculator, unit converter, QR code generator and image compressor.">
+<meta name="keywords" content="free online tools, word counter, age calculator, percentage calculator, unit converter, QR code generator, image compressor">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#123b35">
+<style>
+:root{--ink:#18312d;--muted:#62736f;--bg:#f4f8f6;--card:#fff;--brand:#146b5a;--line:#dce8e3;--soft:#e8f4ef}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+header{background:#123b35;color:#fff;padding:25px 16px 20px} .wrap{max-width:1000px;margin:auto;padding:0 16px}
+.brand{font-weight:800;font-size:25px;letter-spacing:-.5px}.brand span{color:#a9e5ce}
+header p{color:#d7e9e2;margin:7px 0 16px}.search{width:100%;max-width:540px;padding:13px 15px;border:0;border-radius:12px;font-size:16px}
+nav{display:flex;gap:16px;flex-wrap:wrap;margin-top:15px}nav a{color:#e5f5ef;text-decoration:none;font-size:14px}
+main{padding:25px 0 50px}.intro{margin-bottom:20px}.intro h1{font-size:clamp(25px,5vw,36px);line-height:1.15;margin:0 0 8px}.intro p{color:var(--muted);margin:0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:15px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:0 3px 12px #153c3010}
+.card h2{font-size:19px;margin:0 0 4px}.desc{color:var(--muted);font-size:14px;margin:0 0 13px}
+label{display:block;font-weight:650;font-size:14px;margin:10px 0 5px}
+input,textarea,select{width:100%;padding:11px 12px;border:1px solid #cbdad4;border-radius:10px;background:#fff;font:inherit;color:var(--ink)}
+textarea{min-height:105px;resize:vertical}
+button{border:0;border-radius:10px;background:var(--brand);color:white;padding:11px 15px;font:inherit;font-weight:700;margin-top:10px;cursor:pointer}
+button.secondary{background:#e8f4ef;color:#155d4f;border:1px solid #cde4da}
+.result{margin-top:10px;padding:10px 12px;background:#f0f7f3;border-radius:10px;min-height:40px;overflow-wrap:anywhere}
+.small{font-size:13px;color:var(--muted)}.adslot{margin:20px 0;border:1px dashed #b7c9c1;border-radius:12px;padding:14px;text-align:center;color:#71827c;font-size:13px;background:#f9fcfa}
+.tool-icon{font-size:23px;margin-bottom:5px}.hidden{display:none!important}
+footer{background:#123b35;color:#d7e9e2;padding:28px 0}footer a{color:#bcebd8;margin-right:14px}
+#qr canvas,#qr img{max-width:100%;height:auto!important}
+@media(max-width:500px){header{padding-top:20px}.card{padding:15px}.wrap{padding-left:13px;padding-right:13px}}
+</style>
+</head>
+<body>
+<header>
+ <div class="wrap">
+  <div class="brand">Quick<span>Free</span>Tools</div>
+  <p>Simple, useful tools. Free to use, right in your browser.</p>
+  <input class="search" id="search" placeholder="Search a tool, e.g. word counter..." aria-label="Search tools">
+  <nav><a href="#tools">All tools</a><a href="#about">About</a><a href="#privacy">Privacy</a><a href="#contact">Contact</a></nav>
+ </div>
+</header>
+<main class="wrap">
+ <section class="intro"><h1>Free Online Tools for Everyday Tasks</h1><p>Fast, easy-to-use tools for writing, calculations, conversions and images. No account required.</p></section>
+ <div class="adslot">Advertisement space — apply for an ad network after your site has useful original content and meets its policies.</div>
+ <section class="grid" id="tools">
+  <article class="card tool" data-name="word counter character count reading time">
+   <div class="tool-icon">📝</div><h2>Word Counter</h2><p class="desc">Count words, characters and estimated reading time.</p>
+   <label for="words">Paste or type your text</label><textarea id="words" placeholder="Start typing here..."></textarea>
+   <div class="result" id="wordResult" aria-live="polite">0 words · 0 characters · 0 min read</div>
+  </article>
+  <article class="card tool" data-name="age calculator date of birth">
+   <div class="tool-icon">🎂</div><h2>Age Calculator</h2><p class="desc">Calculate your age from your date of birth.</p>
+   <label for="dob">Date of birth</label><input type="date" id="dob">
+   <button onclick="calcAge()">Calculate age</button><div class="result" id="ageResult" aria-live="polite">Your age will appear here.</div>
+  </article>
+  <article class="card tool" data-name="percentage calculator percent">
+   <div class="tool-icon">％</div><h2>Percentage Calculator</h2><p class="desc">Find what percentage one number is of another.</p>
+   <label for="part">Value</label><input type="number" id="part" placeholder="e.g. 25">
+   <label for="whole">Total</label><input type="number" id="whole" placeholder="e.g. 200">
+   <button onclick="calcPercent()">Calculate</button><div class="result" id="percentResult">Your answer will appear here.</div>
+  </article>
+  <article class="card tool" data-name="unit converter length weight temperature">
+   <div class="tool-icon">📏</div><h2>Unit Converter</h2><p class="desc">Convert common length, weight and temperature units.</p>
+   <label for="unitType">Conversion type</label><select id="unitType" onchange="updateUnits()"><option value="length">Length</option><option value="weight">Weight</option><option value="temp">Temperature</option></select>
+   <label for="unitValue">Value</label><input type="number" id="unitValue" value="1">
+   <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><div><label for="fromUnit">From</label><select id="fromUnit"></select></div><div><label for="toUnit">To</label><select id="toUnit"></select></div></div>
+   <button onclick="convertUnit()">Convert</button><div class="result" id="unitResult">Your answer will appear here.</div>
+  </article>
+  <article class="card tool" data-name="image compressor reduce image size jpg png webp">
+   <div class="tool-icon">🖼️</div><h2>Image Compressor</h2><p class="desc">Reduce an image file size in your browser.</p>
+   <label for="compressFile">Choose an image</label><input type="file" id="compressFile" accept="image/*">
+   <label for="quality">Quality: <span id="qualityText">70%</span></label><input type="range" id="quality" min="20" max="95" value="70" oninput="qualityText.textContent=this.value+'%'">
+   <button onclick="compressImage()">Compress image</button><div class="result" id="compressResult">Choose an image to begin.</div>
+  </article>
+  <article class="card tool" data-name="image resizer resize picture pixels">
+   <div class="tool-icon">↔️</div><h2>Image Resizer</h2><p class="desc">Resize an image to your chosen pixel width.</p>
+   <label for="resizeFile">Choose an image</label><input type="file" id="resizeFile" accept="image/*">
+   <label for="resizeWidth">New width in pixels</label><input type="number" id="resizeWidth" min="1" max="8000" value="800">
+   <button onclick="resizeImage()">Resize and download</button><div class="result" id="resizeResult">Your resized image will download here.</div>
+  </article>
+  <article class="card tool" data-name="qr code generator create qr">
+   <div class="tool-icon">▦</div><h2>QR Code Generator</h2><p class="desc">Create a QR code from a link or short text.</p>
+   <label for="qrText">Website link or text</label><input id="qrText" placeholder="https://example.com">
+   <button onclick="makeQR()">Generate QR code</button><div class="result" id="qr">Your QR code will appear here.</div>
+  </article>
+ </section>
+ <div class="adslot">Advertisement space — do not place ads in a way that causes accidental clicks.</div>
+ <section class="card" id="about" style="margin-top:18px"><h2>About QuickFreeTools</h2><p>QuickFreeTools is a growing collection of free browser-based utilities for everyday tasks. Our goal is to make simple tools easy to find and use on mobile phones and computers. We aim to add more helpful tools and clear instructions over time.</p></section>
+ <section class="card" id="privacy" style="margin-top:14px"><h2>Privacy Policy</h2><p>Most tools on this demo page process the information you enter directly in your browser. The site owner should update this policy before publishing, especially if analytics, advertising, cookies, contact forms or third-party services are added. Do not enter sensitive or confidential information into online tools.</p></section>
+ <section class="card" id="contact" style="margin-top:14px"><h2>Contact</h2><p>For questions or feedback, add your real contact email address here before publishing: <strong>your-email@example.com</strong></p></section>
+</main>
+<footer><div class="wrap"><strong>QuickFreeTools</strong><p class="small" style="color:#d7e9e2">Free tools for everyday tasks. Check results before using them for important decisions.</p><a href="#about">About</a><a href="#privacy">Privacy</a><a href="#contact">Contact</a><p class="small" style="color:#b8d0c7">© <span id="year"></span> QuickFreeTools</p></div></footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+document.getElementById('year').textContent=new Date().getFullYear();
+const words=document.getElementById('words');
+words.addEventListener('input',()=>{const t=words.value.trim();const w=t?t.split(/\s+/).length:0;const c=words.value.length;document.getElementById('wordResult').textContent=`${w} words · ${c} characters · ${Math.max(1,Math.ceil(w/200))} min read`;});
+function calcAge(){const s=document.getElementById('dob').value,r=document.getElementById('ageResult');if(!s){r.textContent='Please choose your date of birth.';return}const b=new Date(s+'T00:00:00'),n=new Date();if(b>n){r.textContent='Date of birth cannot be in the future.';return}let y=n.getFullYear()-b.getFullYear(),m=n.getMonth()-b.getMonth(),d=n.getDate()-b.getDate();if(d<0){m--;d+=new Date(n.getFullYear(),n.getMonth(),0).getDate()}if(m<0){y--;m+=12}r.textContent=`You are ${y} years, ${m} months and ${d} days old.`}
+function calcPercent(){const a=Number(document.getElementById('part').value),b=Number(document.getElementById('whole').value);document.getElementById('percentResult').textContent=(!document.getElementById('part').value||!document.getElementById('whole').value)?'Enter both numbers.':b===0?'Total cannot be zero.':`${(a/b*100).toFixed(2)}%`;}
+const units={length:{m:1,km:1000,cm:.01,mm:.001,mi:1609.344,ft:.3048,in:.0254},weight:{kg:1,g:.001,mg:.000001,lb:.45359237,oz:.028349523125}};
+function updateUnits(){const type=document.getElementById('unitType').value,opts=type==='temp'?['Celsius','Fahrenheit','Kelvin']:Object.keys(units[type]);for(const id of ['fromUnit','toUnit']){document.getElementById(id).innerHTML=opts.map((u,i)=>`<option value="${u}">${u}</option>`).join('')}if(type!=='temp')document.getElementById('toUnit').selectedIndex=Math.min(1,opts.length-1)}
+function convertUnit(){const type=unitType.value,v=Number(unitValue.value),f=fromUnit.value,t=toUnit.value;if(!unitValue.value){unitResult.textContent='Enter a value.';return}let out;if(type==='temp'){let c=f==='Celsius'?v:f==='Fahrenheit'?(v-32)*5/9:v-273.15;out=t==='Celsius'?c:t==='Fahrenheit'?c*9/5+32:c+273.15}else out=v*units[type][f]/units[type][t];unitResult.textContent=`${v} ${f} = ${Number(out.toFixed(6))} ${t}`}
+updateUnits();
+function loadImage(file,cb){if(!file){cb(null);return}const img=new Image(),url=URL.createObjectURL(file);img.onload=()=>{URL.revokeObjectURL(url);cb(img)};img.onerror=()=>{URL.revokeObjectURL(url);cb(null)};img.src=url}
+function downloadCanvas(canvas,name,type,q){canvas.toBlob(blob=>{if(!blob){return}const a=document.createElement('a'),u=URL.createObjectURL(blob);a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(u)},type,q)}
+function compressImage(){const f=compressFile.files[0];if(!f){compressResult.textContent='Please choose an image.';return}loadImage(f,img=>{if(!img){compressResult.textContent='Could not read this image.';return}const c=document.createElement('canvas');c.width=img.naturalWidth;c.height=img.naturalHeight;c.getContext('2d').drawImage(img,0,0);const type='image/jpeg',q=Number(quality.value)/100;c.toBlob(blob=>{if(!blob){compressResult.textContent='Compression failed.';return}const a=document.createElement('a'),u=URL.createObjectURL(blob);a.href=u;a.download='compressed-image.jpg';a.click();URL.revokeObjectURL(u);compressResult.textContent=`Original: ${(f.size/1024).toFixed(1)} KB · Compressed: ${(blob.size/1024).toFixed(1)} KB. Download started.`},type,q)})}
+function resizeImage(){const f=resizeFile.files[0],w=Number(resizeWidth.value);if(!f||!w||w<1){resizeResult.textContent='Choose an image and enter a valid width.';return}loadImage(f,img=>{if(!img){resizeResult.textContent='Could not read this image.';return}const c=document.createElement('canvas'),h=Math.round(img.naturalHeight*w/img.naturalWidth);c.width=w;c.height=h;c.getContext('2d').drawImage(img,0,0,w,h);downloadCanvas(c,'resized-image.jpg','image/jpeg',.88);resizeResult.textContent=`Resized image: ${w} × ${h} pixels. Download started.`})}
+function makeQR(){const val=qrText.value.trim();if(!val){qr.innerHTML='Enter a link or text first.';return}if(typeof QRCode==='undefined'){qr.textContent='QR library did not load. Check your internet connection and reload.';return}qr.innerHTML='';new QRCode(qr,{text:val,width:190,height:190,correctLevel:QRCode.CorrectLevel.H});}
+document.getElementById('search').addEventListener('input',e=>{const q=e.target.value.toLowerCase();document.querySelectorAll('.tool').forEach(c=>c.classList.toggle('hidden',!c.dataset.name.includes(q)&&!c.innerText.toLowerCase().includes(q)))});
+</script>
+</body></html>
